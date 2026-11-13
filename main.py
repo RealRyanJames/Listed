@@ -8,6 +8,25 @@ import sys
 root = Tk()
 win = Win(True)
 
+class Log:
+    def __init__(self):
+        self.isAppended = True
+
+    def isLog(self) -> bool:
+        return self.isAppended
+
+def logFile() -> bool:
+    log = Log()
+    return log.isLog()
+
+def appendFile(text_1: str, text_2: str) -> None:
+
+    if logFile():
+
+        with open("todos.txt", "a") as f:
+            f.write(text_1 + "\n")
+            f.write(text_2 + "\n")
+
 if win.isEnabled():
 
     app =  AppendUIElements("Enter Todo 1: ", root)
@@ -29,6 +48,8 @@ if win.isEnabled():
             print("Text: ", text_value)
             text_1 = text1.get("1.0", "end-1c")
             print("Text: ", text_1)
+
+            appendFile(text_1=text_value, text_2=text_1)
 
         b = Button(text="Submit", command=get_text)
 
